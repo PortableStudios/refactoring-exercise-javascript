@@ -3,6 +3,7 @@ const MOVIES = {
   F002: { title: 'Trois Couleurs: Bleu', code: 'regular' },
   F003: { title: 'Cars 2', code: 'childrens' },
   F004: { title: 'Latest Hit Release', code: 'new' },
+  F005: { title: 'Latest Hit Release', code: 'unknown' },
 };
 
 class Rental {

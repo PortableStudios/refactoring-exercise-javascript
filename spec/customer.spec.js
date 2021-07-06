@@ -1,4 +1,17 @@
 describe('Customer', function () {
+  describe('customer has an unknown movie type', () => {
+    it('should throw an error', function () {
+      var customer = new Customer(
+        'martin',
+        [{ movieID: 'F005', days: 3 }],
+      );
+
+      expect(function () {
+        customer.statement();
+      }).toThrow();
+    });
+  });
+
   describe('customer has two regular movies', () => {
     var properResult =
       'Rental Record for martin' +
