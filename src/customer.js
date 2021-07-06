@@ -5,28 +5,28 @@ const movies = {
   F004: { title: 'Latest Hit Release', code: 'new' },
 };
 
-class Rental {
+class Customer {
   statement(customer) {
     let totalAmount = 0;
     let frequentRenterPoints = 0;
     let result = `Rental Record for ${customer.name}\n`;
 
-    for (let r of customer.rentals) {
-      const movie = movies[r.movieID];
+    for (const rental of customer.rentals) {
+      const movie = movies[rental.movieID];
       let thisAmount = 0;
 
       // determine amount for each movie
       switch (movie.code) {
         case 'regular':
           thisAmount = 2;
-          if (r.days > 2) {
-            thisAmount += (r.days - 2) * 1.5;
+          if (rental.days > 2) {
+            thisAmount += (rental.days - 2) * 1.5;
           }
           frequentRenterPoints += 1;
           break;
         case 'new':
-          thisAmount = r.days * 3;
-          if (r.days > 2) {
+          thisAmount = rental.days * 3;
+          if (rental.days > 2) {
             frequentRenterPoints += 2;
           } else {
             frequentRenterPoints += 1;
@@ -34,8 +34,8 @@ class Rental {
           break;
         case 'childrens':
           thisAmount = 1.5;
-          if (r.days > 3) {
-            thisAmount += (r.days - 3) * 1.5;
+          if (rental.days > 3) {
+            thisAmount += (rental.days - 3) * 1.5;
           }
           frequentRenterPoints += 1;
           break;

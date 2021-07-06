@@ -1,8 +1,8 @@
-describe('Rental', function () {
+describe('Customer', function () {
   var stuff;
 
   beforeEach(function () {
-    stuff = new Rental();
+    stuff = new Customer();
   });
 
   describe('customer has two regular movies', () => {
