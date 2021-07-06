@@ -26,7 +26,7 @@ describe('Rental', function () {
     });
   });
 
-  describe('customer has a childrens movie', () => {
+  describe('customer has a childrens movie for 3 days or less', () => {
     var properResult =
       'Rental Record for martin' +
       'Cars2     1.5' +
@@ -39,6 +39,26 @@ describe('Rental', function () {
       var customer = {
         name: 'martin',
         rentals: [{ movieID: 'F003', days: 3 }]
+      };
+
+      var actualResult = stuff.statement(customer).replace(/\s+/g, '');
+      expect(actualResult).toEqual(properResult);
+    });
+  });
+
+  describe('customer has a childrens movie for more than 3 days', () => {
+    var properResult =
+      'Rental Record for martin' +
+      'Cars2     3' +
+      'Amount owed is 3' +
+      'You earned 1 frequent renter points';
+
+    it('should return the proper result', function () {
+      properResult = properResult.replace(/\s+/g, '');
+
+      var customer = {
+        name: 'martin',
+        rentals: [{ movieID: 'F003', days: 4 }]
       };
 
       var actualResult = stuff.statement(customer).replace(/\s+/g, '');
