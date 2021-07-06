@@ -3,7 +3,6 @@ const movies = {
   F002: { title: 'Trois Couleurs: Bleu', code: 'regular' },
   F003: { title: 'Cars 2', code: 'childrens' },
   F004: { title: 'Latest Hit Release', code: 'new' },
-  //EXERCISE NOTE: add more movies if you need
 };
 
 class Rental {
@@ -12,7 +11,7 @@ class Rental {
     let frequentRenterPoints = 0;
     let result = `Rental Record for ${customer.name}\n`;
     for (let r of customer.rentals) {
-      let movie = movies[r.movieID];
+      const movie = movies[r.movieID];
       let thisAmount = 0;
 
       // determine amount for each movie
@@ -32,14 +31,16 @@ class Rental {
             thisAmount += (r.days - 3) * 1.5;
           }
           break;
+        default:
+          throw new Error('Unknown movie type');
       }
 
-      //add frequent renter points
-      frequentRenterPoints++;
+      // add frequent renter points
+      frequentRenterPoints += 1;
       // add bonus for a two day new release rental
-      if (movie.code === 'new' && r.days > 2) frequentRenterPoints++;
+      if (movie.code === 'new' && r.days > 2) frequentRenterPoints += 1;
 
-      //print figures for this rental
+      // print figures for this rental
       result += `\t${movie.title}\t${thisAmount}\n`;
       totalAmount += thisAmount;
     }
@@ -50,4 +51,3 @@ class Rental {
     return result;
   }
 }
-
