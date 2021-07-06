@@ -6,52 +6,60 @@ const movies = {
 };
 
 class Customer {
-  statement(customer) {
-    let totalAmount = 0;
+  calculate(rental) {
+    const movie = movies[rental.movieID];
+    let amount = 0;
     let frequentRenterPoints = 0;
-    let result = `Rental Record for ${customer.name}\n`;
 
-    for (const rental of customer.rentals) {
-      const movie = movies[rental.movieID];
-      let thisAmount = 0;
-
-      // determine amount for each movie
-      switch (movie.code) {
-        case 'regular':
-          thisAmount = 2;
-          if (rental.days > 2) {
-            thisAmount += (rental.days - 2) * 1.5;
-          }
+    // determine amount for each movie
+    switch (movie.code) {
+      case 'regular':
+        amount = 2;
+        if (rental.days > 2) {
+          amount += (rental.days - 2) * 1.5;
+        }
+        frequentRenterPoints += 1;
+        break;
+      case 'new':
+        amount = rental.days * 3;
+        if (rental.days > 2) {
+          frequentRenterPoints += 2;
+        } else {
           frequentRenterPoints += 1;
-          break;
-        case 'new':
-          thisAmount = rental.days * 3;
-          if (rental.days > 2) {
-            frequentRenterPoints += 2;
-          } else {
-            frequentRenterPoints += 1;
-          }
-          break;
-        case 'childrens':
-          thisAmount = 1.5;
-          if (rental.days > 3) {
-            thisAmount += (rental.days - 3) * 1.5;
-          }
-          frequentRenterPoints += 1;
-          break;
-        default:
-          throw new Error('Unknown movie type');
-      }
-
-      // print figures for this rental
-      result += `\t${movie.title}\t${thisAmount}\n`;
-      totalAmount += thisAmount;
+        }
+        break;
+      case 'childrens':
+        amount = 1.5;
+        if (rental.days > 3) {
+          amount += (rental.days - 3) * 1.5;
+        }
+        frequentRenterPoints += 1;
+        break;
+      default:
+        throw new Error('Unknown movie type');
     }
 
-    // add footer lines
-    result += `Amount owed is ${totalAmount}\n`;
-    result += `You earned ${frequentRenterPoints} frequent renter points\n`;
+    return ({
+      amount,
+      movie,
+      frequentRenterPoints,
+    });
+  }
 
-    return result;
+  statement(customer) {
+    let statement = `Rental Record for ${customer.name}\n`;
+
+    const results = customer.rentals.map(this.calculate);
+
+    // print figures for all rentals
+    statement += results.map((result) => `\t${result.movie.title}\t${result.amount}\n`).join('');
+
+    // add footer lines
+    const totalAmount = results.reduce((acc, currentValue) => acc + currentValue.amount, 0);
+    const frequentRenterPoints = results.reduce((acc, currentValue) => acc + currentValue.frequentRenterPoints, 0);
+    statement += `Amount owed is ${totalAmount}\n`;
+    statement += `You earned ${frequentRenterPoints} frequent renter points\n`;
+
+    return statement;
   }
 }
