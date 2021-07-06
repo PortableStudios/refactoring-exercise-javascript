@@ -5,6 +5,12 @@ const movies = {
   F004: { title: 'Latest Hit Release', code: 'new' },
 };
 
+// Customer has a name
+// Customer has many Rentals
+// A single Rental consists of a Movie ID and number of days for the rental
+// Customer has one Statement
+// Statement can be rendered to screen
+
 class Customer {
   calculate(rental) {
     const movie = movies[rental.movieID];
