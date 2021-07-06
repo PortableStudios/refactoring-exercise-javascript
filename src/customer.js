@@ -54,6 +54,26 @@ class Rental {
 
 }
 
+class Statement {
+  constructor(name, results, totalAmount, frequentRenterPoints) {
+    this.name = name;
+    this.results = results;
+    this.totalAmount = totalAmount;
+    this.frequentRenterPoints = frequentRenterPoints
+  }
+
+  render() {
+    let statement = `Rental Record for ${this.name}\n`;
+    statement += this.results.map((result) => (
+      `\t${result.movie.title}\t${result.amount}\n`
+    )).join('');
+
+    statement += `Amount owed is ${this.totalAmount}\n`;
+    statement += `You earned ${this.frequentRenterPoints} frequent renter points\n`;
+    return statement;
+  }
+}
+
 class Customer {
   constructor(name, rentals) {
     this.name = name;
@@ -61,24 +81,12 @@ class Customer {
   }
 
   statement() {
-    let statement = `Rental Record for ${this.name}\n`;
-
     const results = this.rentals.map((rental) => (
       new Rental(rental.movieID, rental.days).calculate()
     ));
-
-    // print figures for all rentals
-    statement += results.map((result) => (
-      `\t${result.movie.title}\t${result.amount}\n`
-    )).join('');
-
-    // add footer lines
     const totalAmount = results.reduce((acc, currentValue) => acc + currentValue.amount, 0);
     const frequentRenterPoints = results.reduce((acc, currentValue) => acc + currentValue.frequentRenterPoints, 0);
 
-    statement += `Amount owed is ${totalAmount}\n`;
-    statement += `You earned ${frequentRenterPoints} frequent renter points\n`;
-
-    return statement;
+    return new Statement(this.name, results, totalAmount, frequentRenterPoints).render();
   }
 }
