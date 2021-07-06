@@ -1,10 +1,4 @@
 describe('Customer', function () {
-  var stuff;
-
-  beforeEach(function () {
-    stuff = new Customer();
-  });
-
   describe('customer has two regular movies', () => {
     var properResult =
       'Rental Record for martin' +
@@ -16,12 +10,12 @@ describe('Customer', function () {
     it('should return the proper result', function () {
       properResult = properResult.replace(/\s+/g, '');
 
-      var customer = {
-        name: 'martin',
-        rentals: [{ movieID: 'F001', days: 3 }, { movieID: 'F002', days: 1 }]
-      };
+      var customer = new Customer(
+        'martin',
+        [{ movieID: 'F001', days: 3 }, { movieID: 'F002', days: 1 }],
+      );
 
-      var actualResult = stuff.statement(customer).replace(/\s+/g, '');
+      var actualResult = customer.statement().replace(/\s+/g, '');
       expect(actualResult).toEqual(properResult);
     });
   });
@@ -36,12 +30,12 @@ describe('Customer', function () {
     it('should return the proper result', function () {
       properResult = properResult.replace(/\s+/g, '');
 
-      var customer = {
-        name: 'martin',
-        rentals: [{ movieID: 'F003', days: 3 }]
-      };
+      var customer = new Customer(
+        'martin',
+        [{ movieID: 'F003', days: 3 }],
+      );
 
-      var actualResult = stuff.statement(customer).replace(/\s+/g, '');
+      var actualResult = customer.statement().replace(/\s+/g, '');
       expect(actualResult).toEqual(properResult);
     });
   });
@@ -56,12 +50,12 @@ describe('Customer', function () {
     it('should return the proper result', function () {
       properResult = properResult.replace(/\s+/g, '');
 
-      var customer = {
-        name: 'martin',
-        rentals: [{ movieID: 'F003', days: 4 }]
-      };
+      var customer = new Customer(
+        'martin',
+        [{ movieID: 'F003', days: 4 }],
+      );
 
-      var actualResult = stuff.statement(customer).replace(/\s+/g, '');
+      var actualResult = customer.statement().replace(/\s+/g, '');
       expect(actualResult).toEqual(properResult);
     });
   });
@@ -76,12 +70,12 @@ describe('Customer', function () {
     it('should return the proper result', function () {
       properResult = properResult.replace(/\s+/g, '');
 
-      var customer = {
-        name: 'martin',
-        rentals: [{ movieID: 'F004', days: 2 }]
-      };
+      var customer = new Customer(
+        'martin',
+        [{ movieID: 'F004', days: 2 }],
+      );
 
-      var actualResult = stuff.statement(customer).replace(/\s+/g, '');
+      var actualResult = customer.statement().replace(/\s+/g, '');
       expect(actualResult).toEqual(properResult);
     });
   });
@@ -96,12 +90,12 @@ describe('Customer', function () {
     it('should return the proper result', function () {
       properResult = properResult.replace(/\s+/g, '');
 
-      var customer = {
-        name: 'martin',
-        rentals: [{ movieID: 'F004', days: 3 }]
-      };
+      var customer = new Customer(
+        'martin',
+        [{ movieID: 'F004', days: 3 }],
+      );
 
-      var actualResult = stuff.statement(customer).replace(/\s+/g, '');
+      var actualResult = customer.statement().replace(/\s+/g, '');
       expect(actualResult).toEqual(properResult);
     });
   });

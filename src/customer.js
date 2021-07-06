@@ -12,6 +12,11 @@ const movies = {
 // Statement can be rendered to screen
 
 class Customer {
+  constructor(name, rentals) {
+    this.name = name;
+    this.rentals = rentals;
+  }
+
   calculate(rental) {
     const movie = movies[rental.movieID];
     let amount = 0;
@@ -52,10 +57,10 @@ class Customer {
     });
   }
 
-  statement(customer) {
-    let statement = `Rental Record for ${customer.name}\n`;
+  statement() {
+    let statement = `Rental Record for ${this.name}\n`;
 
-    const results = customer.rentals.map(this.calculate);
+    const results = this.rentals.map(this.calculate);
 
     // print figures for all rentals
     statement += results.map((result) => `\t${result.movie.title}\t${result.amount}\n`).join('');
