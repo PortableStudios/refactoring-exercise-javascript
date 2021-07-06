@@ -45,4 +45,24 @@ describe('Rental', function () {
       expect(actualResult).toEqual(properResult);
     });
   });
+
+  describe('customer has a new movie', () => {
+    var properResult =
+      'Rental Record for martin' +
+      'Latest Hit Release     9' +
+      'Amount owed is 9' +
+      'You earned 2 frequent renter points';
+
+    it('should return the proper result', function () {
+      properResult = properResult.replace(/\s+/g, '');
+
+      var customer = {
+        name: 'martin',
+        rentals: [{ movieID: 'F004', days: 3 }]
+      };
+
+      var actualResult = stuff.statement(customer).replace(/\s+/g, '');
+      expect(actualResult).toEqual(properResult);
+    });
+  });
 });
