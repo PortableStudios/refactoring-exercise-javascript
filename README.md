@@ -2,11 +2,11 @@
 
 To install dependencies:
 
-```npm install```
+```yarn install```
 
 To run the tests:
 
-```npm test```
+```yarn test```
 
 Assume that this code has been in production for years without complaint.  We are trying to understand the code better so are going to use our refactoring skills to "read" the code.
 
